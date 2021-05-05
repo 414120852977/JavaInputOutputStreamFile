@@ -18,8 +18,4 @@ public class EmployeePayRollDataTest {
         employeePayRollService1.shoeOnConsole();
         Assert.assertTrue(true);
     }
-
-    @Test
-    public void givenEmployeePayRollDataShouldReturnOnConsoles() {
-    }
 }
