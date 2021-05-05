@@ -5,6 +5,18 @@ import java.util.List;
 import java.util.Scanner;
 
 public class EmployeePayRollService {
+
+
+    public void printData(IOService ioService) {
+        if (ioService.equals(IOService.FILE_IO)) new EmployeePayRollFileIOService().printData();
+    }
+
+    public long countEntries(IOService ioService) {
+        if (ioService.equals(IOService.FILE_IO))
+          return   new EmployeePayRollFileIOService().countEntries();
+        return 0;
+    }
+
     public  enum IOService{CONSOLE_IO,FILE_IO,DB_IO,REST_IO}
     private List<EmployeePayRollData> employeePayRollServicelist;
 
@@ -29,8 +41,12 @@ public class EmployeePayRollService {
 //        employeePayRollServicelist.add(new EmployeePayRollData(id,name,salary));
 //        System.out.println("output reading on console :"+employeePayRollServicelist);
     }
-public void shoeOnConsole() {
+public void shoeOnConsole(IOService ioService) {
+        if (ioService.equals(IOService.CONSOLE_IO))
     System.out.println("output reading on console :"+employeePayRollServicelist);
+        else if(ioService.equals(IOService.FILE_IO)) {
+            new EmployeePayRollFileIOService().writeData(employeePayRollServicelist);
+        }
 }
 }
 

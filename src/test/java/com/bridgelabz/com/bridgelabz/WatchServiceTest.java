@@ -17,6 +17,10 @@ public class WatchServiceTest {
 
     private static final String PLAY_WITH_NIO = PlayWithNio;
 
+    /**
+     * watch service to views all directories files and sub directories
+     * @throws IOException
+     */
     @Test
     public void givenDirectoriesWhenWatchedListsAllTheActivities() throws IOException {
        Path dir = Paths.get(HOME+"/"+PLAY_WITH_NIO);
