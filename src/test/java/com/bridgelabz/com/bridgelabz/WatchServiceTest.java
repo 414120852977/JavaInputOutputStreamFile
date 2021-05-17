@@ -13,10 +13,7 @@ import static com.bridgelabz.com.bridgelabz.NIOFileTest.HOME;
 import static com.bridgelabz.com.bridgelabz.NIOFileTest.PlayWithNio;
 
 public class WatchServiceTest {
-
-
     private static final String PLAY_WITH_NIO = PlayWithNio;
-
     /**
      * watch service to views all directories files and sub directories
      * @throws IOException

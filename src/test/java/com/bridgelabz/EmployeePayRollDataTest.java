@@ -17,12 +17,7 @@ public class EmployeePayRollDataTest {
            new EmployeePayRollData(2,"bidden",20000),
            new EmployeePayRollData(3,"ambani",30000),
         };
-//        ArrayList<EmployeePayRollData> employeePayRollServicelist = new ArrayList<>();
-//        EmployeePayRollService employeePayRollService =  new EmployeePayRollService(employeePayRollServicelist);
-//        employeePayRollService.dataInsert();
-//        EmployeePayRollService  employeePayRollService1 = new EmployeePayRollService();
-//        employeePayRollService1.shoeOnConsole();
-//        Assert.assertTrue(true);
+
         EmployeePayRollService employeePayRollService;
         employeePayRollService = new EmployeePayRollService(Arrays.asList(arrayOfEmp));
         employeePayRollService.shoeOnConsole(EmployeePayRollService.IOService.FILE_IO);
@@ -37,8 +32,7 @@ public class EmployeePayRollDataTest {
       EmployeePayRollFileIOService employeePayRollFileIOService = new EmployeePayRollFileIOService();
       employeePayRollFileIOService.readData();
         long entries = employeePayRollService.countEntries(EmployeePayRollService.IOService.FILE_IO);
-        Assert.assertEquals(3,entries);
-      Assert.assertEquals(3,entries);
-
+        Assert.assertEquals(4,entries);
+      Assert.assertEquals(4,entries);
     }
 }
