@@ -41,7 +41,16 @@ public class EmployeePayRollService {
 //        employeePayRollServicelist.add(new EmployeePayRollData(id,name,salary));
 //        System.out.println("output reading on console :"+employeePayRollServicelist);
     }
-public void shoeOnConsole(IOService ioService) {
+
+    public List<EmployeePayRollData> readEmployeePayRollData(IOService ioService) {
+        if (ioService.equals(IOService.DB_IO)) {
+            this.employeePayRollServicelist = new EmployeePayrollDBService().readData();
+
+        }
+        return this.employeePayRollServicelist;
+    }
+
+    public void shoeOnConsole(IOService ioService) {
         if (ioService.equals(IOService.CONSOLE_IO))
     System.out.println("output reading on console :"+employeePayRollServicelist);
         else if(ioService.equals(IOService.FILE_IO)) {

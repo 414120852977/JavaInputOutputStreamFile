@@ -1,4 +1,1 @@
-EmployeePayRollData{id=1, name='joe', salary=10000.0}
-EmployeePayRollData{id=2, name='bidden', salary=20000.0}
-EmployeePayRollData{id=3, name='ambani', salary=30000.0}
-EmployeePayRollData{id=3, name='ambani', salary=30000.0}
+EmployeePayRollData{id=1, name='joe', phoneNumber=10000, address='pune', department='cse', gender='M', basicpay=5656, deductions=54545, taxablepay=45454, income_tax=4545, net_pay=445, start=2021-05-17}
