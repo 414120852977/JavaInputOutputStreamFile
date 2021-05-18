@@ -64,7 +64,8 @@ public class EmployeePayRollDataTest {
     @Test
     public void RetriveAll_Employees_FromDatabase() {
         EmployeePayrollDBService employeePayrollDBService = new EmployeePayrollDBService();
-        ResultSet resultSet = employeePayrollDBService.retriveEmployeeData("joe");
-        System.out.println(resultSet);
+        List<EmployeePayRollData> employeePayRollDataList = employeePayrollDBService.readData();
+        Assert.assertEquals(6,employeePayRollDataList.size());
+
     }
 }

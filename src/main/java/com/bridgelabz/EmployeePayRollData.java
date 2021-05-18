@@ -1,6 +1,7 @@
 package com.bridgelabz;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 public class EmployeePayRollData {
    private final int id;
@@ -51,5 +52,18 @@ public class EmployeePayRollData {
                 ", net_pay=" + net_pay +
                 ", start=" + start +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        EmployeePayRollData that = (EmployeePayRollData) o;
+        return id == that.id && phoneNo == that.phoneNo && basicpay == that.basicpay && deductions == that.deductions && taxablepay == that.taxablepay && income_tax == that.income_tax && net_pay == that.net_pay && Objects.equals(name, that.name) && Objects.equals(address, that.address) && Objects.equals(department, that.department) && Objects.equals(gender, that.gender) && Objects.equals(start, that.start);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, phoneNo, address, department, gender, basicpay, deductions, taxablepay, income_tax, net_pay, start);
     }
 }

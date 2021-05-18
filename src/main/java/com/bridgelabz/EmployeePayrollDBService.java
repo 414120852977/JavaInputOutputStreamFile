@@ -21,8 +21,8 @@ public class EmployeePayrollDBService {
         List<EmployeePayRollData> employeePayRollDataList = new ArrayList<>();
         try {
             Connection connection = this.getConnection();
-           // Statement statement = connection.createStatement();
-            PreparedStatement statement = connection.prepareStatement("update employee_payroll set basicpay = 3000 where name = joe");
+            Statement statement = connection.createStatement();
+           // PreparedStatement statement = connection.prepareStatement("update employee_payroll set basicpay = 3000 where name = joe");
             ResultSet resultSet = statement.executeQuery(sql);
             while (resultSet.next()) {
                 int id = resultSet.getInt("id");
@@ -40,8 +40,8 @@ public class EmployeePayrollDBService {
                 employeePayRollDataList.add(new EmployeePayRollData(id,name,phoneNo,address,department,gender,basicpay,deductions,taxablepay,income_tax,Net_Pay,start));
 
             }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
         return employeePayRollDataList;
     }
@@ -58,11 +58,11 @@ public class EmployeePayrollDBService {
         }
         return 0;
     }
-    public ResultSet retriveEmployeeData(String name) {
-        String sql = String.format("select * from employee_payroll");
+    public Object retriveEmployeeData()  {
+        String sql = "select * from employee_payroll";
         try (Connection connection = this.getConnection()){
             Statement statement = connection.createStatement();
-            return  statement.executeQuery(sql);
+            statement.executeQuery(sql);;
         }catch (SQLException e) {
             e.printStackTrace();
         }
