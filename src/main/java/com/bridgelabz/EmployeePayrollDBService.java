@@ -46,4 +46,15 @@ public class EmployeePayrollDBService {
     }
 
 
+    public int updateEmployeeData(String name, double basicpay) {
+        String sql = String.format("update employee_payroll set basicpay = %.2f where name = '%s';", basicpay,name);
+        try(Connection connection = this.getConnection()) {
+            Statement statement = connection.createStatement();
+            return statement.executeUpdate(sql);
+
+        }catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
 }

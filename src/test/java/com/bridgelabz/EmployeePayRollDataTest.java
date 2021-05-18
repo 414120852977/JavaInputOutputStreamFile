@@ -45,4 +45,11 @@ public class EmployeePayRollDataTest {
         List<EmployeePayRollData> employeePayRollData = employeePayRollService.readEmployeePayRollData(EmployeePayRollService.IOService.DB_IO);
         Assert.assertEquals(6,employeePayRollData.size());
     }
+
+    @Test
+    public void givenNewSalaryToEmployee_WhenUpdated_ShouldSyncWithDatabase() {
+        EmployeePayRollService employeePayRollService = new EmployeePayRollService();
+        List<EmployeePayRollData> employeePayRollData = employeePayRollService.readEmployeePayRollData(EmployeePayRollService.IOService.DB_IO);
+     employeePayRollService.updateEmployeeSalary("terissa",3000000);
+    }
 }
