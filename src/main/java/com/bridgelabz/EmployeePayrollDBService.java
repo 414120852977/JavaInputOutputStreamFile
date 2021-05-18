@@ -58,4 +58,15 @@ public class EmployeePayrollDBService {
         }
         return 0;
     }
+    public ResultSet retriveEmployeeData(String name) {
+        String sql = String.format("select * from employee_payroll");
+        try (Connection connection = this.getConnection()){
+            Statement statement = connection.createStatement();
+            return  statement.executeQuery(sql);
+        }catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
 }

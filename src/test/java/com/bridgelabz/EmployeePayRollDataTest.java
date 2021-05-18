@@ -4,6 +4,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import java.sql.Date;
+import java.sql.ResultSet;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -58,5 +59,12 @@ public class EmployeePayRollDataTest {
         EmployeePayRollService employeePayRollService = new EmployeePayRollService();
         List<EmployeePayRollData> employeePayRollData = employeePayRollService.readEmployeePayRollData(EmployeePayRollService.IOService.DB_IO);
         employeePayRollService.updateEmployeeSalary("joe",30000);
+    }
+
+    @Test
+    public void RetriveAll_Employees_FromDatabase() {
+        EmployeePayrollDBService employeePayrollDBService = new EmployeePayrollDBService();
+        ResultSet resultSet = employeePayrollDBService.retriveEmployeeData("joe");
+        System.out.println(resultSet);
     }
 }
