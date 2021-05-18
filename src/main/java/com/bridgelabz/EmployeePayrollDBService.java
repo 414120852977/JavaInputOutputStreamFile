@@ -21,7 +21,8 @@ public class EmployeePayrollDBService {
         List<EmployeePayRollData> employeePayRollDataList = new ArrayList<>();
         try {
             Connection connection = this.getConnection();
-            Statement statement = connection.createStatement();
+           // Statement statement = connection.createStatement();
+            PreparedStatement statement = connection.prepareStatement("update employee_payroll set basicpay = 3000 where name = joe");
             ResultSet resultSet = statement.executeQuery(sql);
             while (resultSet.next()) {
                 int id = resultSet.getInt("id");

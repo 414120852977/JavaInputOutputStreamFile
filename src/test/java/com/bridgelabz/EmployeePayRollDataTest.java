@@ -52,4 +52,11 @@ public class EmployeePayRollDataTest {
         List<EmployeePayRollData> employeePayRollData = employeePayRollService.readEmployeePayRollData(EmployeePayRollService.IOService.DB_IO);
      employeePayRollService.updateEmployeeSalary("terissa",3000000);
     }
+
+    @Test
+    public void givenNewSalaryToEmployee_WhenUpdated_ShouldSyncWithDatabase_PreparedStatement() {
+        EmployeePayRollService employeePayRollService = new EmployeePayRollService();
+        List<EmployeePayRollData> employeePayRollData = employeePayRollService.readEmployeePayRollData(EmployeePayRollService.IOService.DB_IO);
+        employeePayRollService.updateEmployeeSalary("joe",30000);
+    }
 }
