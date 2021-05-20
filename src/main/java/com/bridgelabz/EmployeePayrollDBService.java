@@ -187,6 +187,29 @@ public class EmployeePayrollDBService {
         }
         return genderToAverageSalaryMap;
     }
+
+    public EmployeePayRollData addEmployeeToPayRoll(String name, int phoneNo, String address, String department, String gender, int basicpay, int deductions, int taxablepay, int income_tax, int net_pay, LocalDate start) throws SQLException {
+   int id = -1;
+   EmployeePayRollData employeePayRollData = null;
+    String sql  = String.format( "insert into employee_payroll(name,phoneNo,address,department,gender,basicpay,deductions,taxablepay,income_tax,net_pay,start) values('%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s')"
+            ,name,phoneNo,address,department,gender,basicpay,deductions,taxablepay,income_tax,net_pay,start);
+
+    try (Connection connection = this.getConnection()){
+        Statement statement = connection.createStatement();
+        int rowAffected = statement.executeUpdate(sql,statement.RETURN_GENERATED_KEYS);
+        if (rowAffected == 1) {
+            ResultSet resultSet  = statement.getGeneratedKeys();
+            if (resultSet.next()) {
+                id = resultSet.getInt(1);
+            }
+        }
+        employeePayRollData = new EmployeePayRollData(id, name, phoneNo, address, department, gender, basicpay, deductions, taxablepay, income_tax, net_pay, start);
+
+    }catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return employeePayRollData;
+    }
 }
 
 

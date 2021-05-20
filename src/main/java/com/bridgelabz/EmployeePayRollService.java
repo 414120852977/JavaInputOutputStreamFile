@@ -41,6 +41,10 @@ EmployeePayrollDBService employeePayrollDBService = new EmployeePayrollDBService
         return null;
     }
 
+    public void addEmployeeToPayroll(String name, int phoneNo, String address, String department, String gender, int basicpay, int deductions, int taxablepay, int income_tax, int  Net_Pay, LocalDate  start) throws SQLException {
+    employeePayRollServicelist.add(employeePayrollDBService.addEmployeeToPayRoll(name,phoneNo,address,department,gender,basicpay,deductions,taxablepay,income_tax,Net_Pay,start));
+    }
+
 
     public  enum IOService{CONSOLE_IO,FILE_IO,DB_IO,REST_IO}
     private List<EmployeePayRollData> employeePayRollServicelist;

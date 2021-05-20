@@ -65,4 +65,13 @@ public class JdbcTest {
         Assert.assertTrue(averageSalaryByGender.get("M").equals(24847.083333333332)  && averageSalaryByGender
                                                                         .get("F").equals(2001513.75 ));
     }
+
+    @Test
+    public void givenNewEmployee_WhenAdded_ShouldSyncWithDatabase() throws SQLException {
+        EmployeePayRollService employeePayRollService = new EmployeePayRollService();
+        employeePayRollService.readEmployeePayRollData(DB_IO);
+        employeePayRollService.addEmployeeToPayroll("ashok",445,"mumbai","cse","M",4545,544,454,45454,45, LocalDate.now());
+        boolean result = employeePayRollService.checkEmployeePayrollSyncWithDatabase("ashok");
+        Assert.assertTrue(result);
+    }
 }
