@@ -6,19 +6,40 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EmployeePayrollDBService {
+
+    private PreparedStatement employeePayrollDataStatement;
+    private static  EmployeePayrollDBService employeePayrollDBService;
+
+    public EmployeePayrollDBService() {
+    }
+    public static  EmployeePayrollDBService getInstance() {
+        if (employeePayrollDBService == null) {
+            employeePayrollDBService = new EmployeePayrollDBService();
+
+        }
+        return employeePayrollDBService;
+    }
+
     private Connection getConnection() throws SQLException {
         String jdbcURL = "jdbc:mysql://localhost:3306/payroll_service?useSSL=false";
         String userName = "root";
         String password = "root";
         Connection connection;
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            System.out.println("Driver loaded!");
+        } catch (ClassNotFoundException e) {
+            throw new IllegalStateException("cannot find the driver in the classpath!", e);
+        }
         System.out.println("Connecting to database:" + jdbcURL);
         connection = DriverManager.getConnection(jdbcURL, userName, password);
         System.out.println("Connection is successful!!!!!!" + connection);
         return connection;
     }
     public List<EmployeePayRollData> readData()  {
-        String sql = "select * from employee_payroll";
         List<EmployeePayRollData> employeePayRollDataList = new ArrayList<>();
+        String sql = "select * from employee_payroll";
+
         try {
             Connection connection = this.getConnection();
             Statement statement = connection.createStatement();
@@ -38,7 +59,7 @@ public class EmployeePayrollDBService {
                 int Net_Pay  = resultSet.getInt("Net_Pay");
                 LocalDate start = resultSet.getDate("start").toLocalDate();
                 employeePayRollDataList.add(new EmployeePayRollData(id,name,phoneNo,address,department,gender,basicpay,deductions,taxablepay,income_tax,Net_Pay,start));
-
+//                System.out.println("employee data->"+employeePayRollDataList);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -58,15 +79,95 @@ public class EmployeePayrollDBService {
         }
         return 0;
     }
-    public Object retriveEmployeeData()  {
-        String sql = "select * from employee_payroll";
-        try (Connection connection = this.getConnection()){
+
+    public void retriveData()  {
+        String sql = "select SUM(basicpay) from employee_payroll where gender = 'M' GROUP BY gender";
+        try(Connection connection = this.getConnection()) {
             Statement statement = connection.createStatement();
-            statement.executeQuery(sql);;
+             statement.executeQuery(sql);
+
         }catch (SQLException e) {
             e.printStackTrace();
         }
 
-        return null;
+    }
+
+    public List<EmployeePayRollData> getEmployeeForDateRange(LocalDate startDate, LocalDate endDate) {
+        String sql  = String.format("select * from employee_payroll where START BETWEEN '%s' AND '%s';",
+                Date.valueOf(startDate), Date.valueOf(endDate));
+        List<EmployeePayRollData> employeePayRollDataList = new ArrayList<>();
+        try(Connection connection = this.getConnection()) {
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(sql);
+            employeePayRollDataList = this.getEmployeePayrollData(resultSet);
+        }catch (SQLException e) {
+            e.printStackTrace();
+        }
+            return employeePayRollDataList;
+    }
+
+    private List<EmployeePayRollData> getEmployeePayrollDataUsingDb(String sql) {
+        List<EmployeePayRollData> employeePayRollDataList = new ArrayList<>();
+        try(Connection connection = this.getConnection()) {
+            Statement statement = connection.createStatement();
+            ResultSet resultSet =  statement.executeQuery(sql);
+            employeePayRollDataList = this.getEmployeePayrollData(resultSet);
+
+        }catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return employeePayRollDataList;
+    }
+
+    List<EmployeePayRollData> getEmployeePayrollData(String name) {
+        List<EmployeePayRollData> employeePayRollDataList = null;
+        if (this.employeePayrollDataStatement == null) {
+            this.prepareStatementForEmployeeData();
+        }
+       try {
+           employeePayrollDataStatement.setString(1, name);
+           ResultSet resultSet = employeePayrollDataStatement.executeQuery();
+           employeePayRollDataList = this.getEmployeePayrollData(resultSet);
+       }catch (SQLException e) {
+           e.printStackTrace();
+       }
+       return employeePayRollDataList;
+    }
+
+    private void prepareStatementForEmployeeData() {
+        try {
+            Connection connection = this.getConnection();
+            String sql = "select * from employee_payroll where name = ?";
+            employeePayrollDataStatement = connection.prepareStatement(sql);
+        }catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    private List<EmployeePayRollData> getEmployeePayrollData(ResultSet resultSet){
+        List<EmployeePayRollData> employeePayRollDataList = new ArrayList<>();
+        try {
+            while (resultSet.next()) {
+                int id = resultSet.getInt("id");
+                String name = resultSet.getNString("name");
+                int phoneNo  = resultSet.getInt("phoneNo");
+                String address = resultSet.getNString("address");
+                String department = resultSet.getNString("department");
+                String gender  = resultSet.getNString("gender");
+                int basicpay = resultSet.getInt("basicpay");
+                int deductions  = resultSet.getInt("deductions");
+                int taxablepay = resultSet.getInt("taxablepay");
+                int income_tax  = resultSet.getInt("income_tax");
+                int Net_Pay  = resultSet.getInt("Net_Pay");
+                LocalDate start = resultSet.getDate("start").toLocalDate();
+                employeePayRollDataList.add(new EmployeePayRollData(id,name,phoneNo,address,department,gender,basicpay,deductions,taxablepay,income_tax,Net_Pay,start));
+            }
+
+        }catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return employeePayRollDataList;
     }
 }
+
+
+

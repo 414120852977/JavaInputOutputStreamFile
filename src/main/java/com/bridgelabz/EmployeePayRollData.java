@@ -36,6 +36,66 @@ public class EmployeePayRollData {
         this.start = start;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getPhoneNo() {
+        return phoneNo;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public String getDepartment() {
+        return department;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public int getBasicpay() {
+        return basicpay;
+    }
+
+    public void setBasicpay(int basicpay) {
+        this.basicpay = basicpay;
+    }
+
+    public int getDeductions() {
+        return deductions;
+    }
+
+    public int getTaxablepay() {
+        return taxablepay;
+    }
+
+    public int getIncome_tax() {
+        return income_tax;
+    }
+
+    public int getNet_pay() {
+        return net_pay;
+    }
+
+    public LocalDate getStart() {
+        return start;
+    }
+
+    public void setStart(LocalDate start) {
+        this.start = start;
+    }
+
     @Override
     public String toString() {
         return "EmployeePayRollData{" +
@@ -66,4 +126,7 @@ public class EmployeePayRollData {
     public int hashCode() {
         return Objects.hash(id, name, phoneNo, address, department, gender, basicpay, deductions, taxablepay, income_tax, net_pay, start);
     }
+
+
+
 }
