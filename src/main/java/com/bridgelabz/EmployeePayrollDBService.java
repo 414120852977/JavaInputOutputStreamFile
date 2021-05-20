@@ -3,7 +3,9 @@ package com.bridgelabz;
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class EmployeePayrollDBService {
 
@@ -166,6 +168,24 @@ public class EmployeePayrollDBService {
             e.printStackTrace();
         }
         return employeePayRollDataList;
+    }
+
+    public Map<String, Double> getAverageSalaryByGender() throws SQLException {
+        String sql = "select gender , AVG(basicpay) as avg_salary from employee_payroll GROUP BY gender";
+        Map<String,Double> genderToAverageSalaryMap = new HashMap<>();
+        try (Connection connection = this.getConnection()){
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(sql);
+            while (resultSet.next()) {
+                String gender = resultSet.getString("gender");
+                Double basicpay = resultSet.getDouble("avg_salary");
+                genderToAverageSalaryMap.put(gender,basicpay);
+            }
+
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+        return genderToAverageSalaryMap;
     }
 }
 

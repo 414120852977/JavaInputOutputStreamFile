@@ -9,6 +9,7 @@ import org.junit.Test;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 
 import static com.bridgelabz.EmployeePayRollService.IOService.DB_IO;
 
@@ -45,14 +46,7 @@ public class JdbcTest {
         List<EmployeePayRollData> employeePayRollDataList = employeePayrollDBService.readData();
         Assert.assertEquals(6,employeePayRollDataList.size());
     }
-    @Test
-    public void CountOperationsOnDatabases()  {
-        EmployeePayRollService employeePayRollService = new EmployeePayRollService();
-        List<EmployeePayRollData> employeePayRollData = employeePayRollService.readEmployeePayRollData(DB_IO);
-        EmployeePayrollDBService employeePayrollDBService = new EmployeePayrollDBService();
-        employeePayrollDBService.retriveData();
-        Assert.assertTrue(true);
-    }
+
     @Test
     public void givenDateRange_WhenRetrived_ShouldMatchEmployeeCount() {
         EmployeePayRollService employeePayRollService = new EmployeePayRollService();
@@ -61,5 +55,14 @@ public class JdbcTest {
         LocalDate endDate = LocalDate.now();
         List<EmployeePayRollData> employeePayRollData = employeePayRollService.readEmployeePayrollForDateRange(DB_IO,startDate,endDate);
         Assert.assertEquals(6,employeePayRollData.size());
+    }
+
+    @Test
+    public void givenPayrollData_WhenAverageSalaryRetriveByGender_ShouldReturnProperValue() throws SQLException {
+        EmployeePayRollService employeePayRollService = new EmployeePayRollService();
+        employeePayRollService.readEmployeePayRollData(DB_IO);
+        Map<String,Double> averageSalaryByGender = employeePayRollService.readAverageSalaryByGender(DB_IO);
+        Assert.assertTrue(averageSalaryByGender.get("M").equals(24847.083333333332)  && averageSalaryByGender
+                                                                        .get("F").equals(2001513.75 ));
     }
 }

@@ -1,8 +1,10 @@
 package com.bridgelabz;
 
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 public class EmployeePayRollService {
@@ -30,6 +32,13 @@ EmployeePayrollDBService employeePayrollDBService = new EmployeePayrollDBService
       List<EmployeePayRollData>  employeePayRollDataList = employeePayrollDBService.getEmployeePayrollData(name);
         return employeePayRollDataList.get(0).equals(getEmployeePayrollData(name));
 
+    }
+
+    public Map<String, Double> readAverageSalaryByGender(IOService ioService) throws SQLException {
+        if (ioService.equals(IOService.DB_IO)) {
+            return employeePayrollDBService.getAverageSalaryByGender();
+        }
+        return null;
     }
 
 
