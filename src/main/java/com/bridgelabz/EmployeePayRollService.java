@@ -29,8 +29,8 @@ EmployeePayrollDBService employeePayrollDBService = new EmployeePayrollDBService
     }
 
     public boolean checkEmployeePayrollSyncWithDatabase(String name) {
-      List<EmployeePayRollData>  employeePayRollDataList = employeePayrollDBService.getEmployeePayrollData(name);
-        return employeePayRollDataList.get(0).equals(getEmployeePayrollData(name));
+      List<EmployeePayRollData> employeePayRollDataList = employeePayrollDBService.getEmployeePayrollData(name);
+        return employeePayRollDataList.get(1).equals(getEmployeePayrollData(name));
 
     }
 
@@ -42,7 +42,7 @@ EmployeePayrollDBService employeePayrollDBService = new EmployeePayrollDBService
     }
 
     public void addEmployeeToPayroll(String name, int phoneNo, String address, String department, String gender, int basicpay, int deductions, int taxablepay, int income_tax, int  Net_Pay, LocalDate  start) throws SQLException {
-    employeePayRollServicelist.add(employeePayrollDBService.addEmployeeToPayRoll(name,phoneNo,address,department,gender,basicpay,deductions,taxablepay,income_tax,Net_Pay,start));
+    employeePayRollServicelist.add(employeePayrollDBService.addEmployeeToPayRollUc8(name,phoneNo,address,department,gender,basicpay,deductions,taxablepay,income_tax,Net_Pay,start));
     }
 
 

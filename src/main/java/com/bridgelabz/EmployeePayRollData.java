@@ -4,18 +4,19 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 public class EmployeePayRollData {
-   private final int id;
-    public    String name;
-    private final int phoneNo;
-    private final String address;
-    private final String department;
-    private final String gender;
+    private int id;
+    private int employee_id;
+    public  String name;
+    private int phoneNo;
+    private String address;
+    private String department;
+    private String gender;
     public int basicpay;
-    private final int deductions;
-    private final int taxablepay;
-    private final int income_tax;
-    private final int net_pay;
-    public LocalDate start;
+    public int deductions;
+    private int taxablepay;
+    private int income_tax;
+    private int net_pay;
+    private LocalDate start;
 
 
 
@@ -35,6 +36,16 @@ public class EmployeePayRollData {
         this.net_pay = net_Pay;
         this.start = start;
     }
+
+    public EmployeePayRollData(int id, int basicpay, int deductions, int taxablepay, int income_tax, int net_pay) {
+        this.id = id;
+        this.basicpay = basicpay;
+        this.deductions = deductions;
+        this.taxablepay = taxablepay;
+        this.income_tax = income_tax;
+        this.net_pay = net_pay;
+    }
+
 
     public int getId() {
         return id;
@@ -117,16 +128,13 @@ public class EmployeePayRollData {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (o == null || getClass() != o.getClass()) return true;
         EmployeePayRollData that = (EmployeePayRollData) o;
-        return id == that.id && phoneNo == that.phoneNo && basicpay == that.basicpay && deductions == that.deductions && taxablepay == that.taxablepay && income_tax == that.income_tax && net_pay == that.net_pay && Objects.equals(name, that.name) && Objects.equals(address, that.address) && Objects.equals(department, that.department) && Objects.equals(gender, that.gender) && Objects.equals(start, that.start);
+        return id == that.id && employee_id == that.employee_id && phoneNo == that.phoneNo && basicpay == that.basicpay && deductions == that.deductions && taxablepay == that.taxablepay && income_tax == that.income_tax && net_pay == that.net_pay && Objects.equals(name, that.name) && Objects.equals(address, that.address) && Objects.equals(department, that.department) && Objects.equals(gender, that.gender) && Objects.equals(start, that.start);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, phoneNo, address, department, gender, basicpay, deductions, taxablepay, income_tax, net_pay, start);
+        return Objects.hash(id, employee_id, name, phoneNo, address, department, gender, basicpay, deductions, taxablepay, income_tax, net_pay, start);
     }
-
-
-
 }
