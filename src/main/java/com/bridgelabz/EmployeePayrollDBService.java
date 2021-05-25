@@ -253,6 +253,47 @@ public class EmployeePayrollDBService {
 
          return employeePayRollData;
     }
+
+    public EmployeePayRollData putDataIntoCompanyData(int dept_id, String dept_name) {
+        EmployeePayRollData employeePayRollData = null;
+        try (Connection connection = getConnection()){
+            Statement statement = connection.createStatement();
+            String sql  = String.format( "insert into department(dept_id,dept_name) values('%s','%s')"
+                    ,dept_id,dept_name);
+            int rowAffected = statement.executeUpdate(sql,statement.RETURN_GENERATED_KEYS);
+            if (rowAffected == 1) {
+                ResultSet resultSet  = statement.getGeneratedKeys();
+                if (resultSet.next()) {
+                    dept_id = resultSet.getInt(1);
+                }
+
+            }
+        employeePayRollData = new EmployeePayRollData(dept_id,dept_name);
+        }catch (SQLException e) {
+            e.printStackTrace();
+        }
+       return employeePayRollData;
+    }
+
+    public EmployeePayRollData deleteRecordFromCompanyData(int dept_id,String dept_name) {
+        EmployeePayRollData employeePayRollData = null;
+        try (Connection connection = getConnection()){
+            Statement statement = connection.createStatement();
+            String sql  = String.format("delete from department where dept_id = '%s';",dept_id);
+            int rowAffected = statement.executeUpdate(sql,statement.RETURN_GENERATED_KEYS);
+            if (rowAffected == 1) {
+                ResultSet resultSet  = statement.getGeneratedKeys();
+                if (resultSet.next()) {
+                    dept_id = resultSet.getInt(1);
+                }
+
+            }
+            employeePayRollData = new EmployeePayRollData(dept_id,dept_name);
+        }catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return employeePayRollData;
+    }
 }
 
 

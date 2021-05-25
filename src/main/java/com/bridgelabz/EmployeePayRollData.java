@@ -17,6 +17,11 @@ public class EmployeePayRollData {
     private int income_tax;
     private int net_pay;
     private LocalDate start;
+    private  int company_id;
+    private String company_name;
+    private  int dept_id;
+    private String dept_name;
+
 
 
 
@@ -35,6 +40,16 @@ public class EmployeePayRollData {
         this.income_tax = income_tax;
         this.net_pay = net_Pay;
         this.start = start;
+    }
+
+    public EmployeePayRollData( int id,int company_id, String company_name) {
+        this.company_id = company_id;
+        this.company_name = company_name;
+    }
+
+    public EmployeePayRollData(int dept_id, String dept_name) {
+        this.dept_id = dept_id;
+        this.dept_name = dept_name;
     }
 
     public EmployeePayRollData(int id, int basicpay, int deductions, int taxablepay, int income_tax, int net_pay) {
