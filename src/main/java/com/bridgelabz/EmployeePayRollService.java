@@ -78,6 +78,14 @@ EmployeePayrollDBService employeePayrollDBService = new EmployeePayrollDBService
             Thread thread = new Thread(task,employeePayRollData.name) ;
         thread.start();
         });
+        while (employeeAdditionStatus.containsValue(false)) {
+            try {
+                Thread.sleep(10);
+            }catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        System.out.println(employeePayRollServicelist);
     }
 
 
