@@ -17,7 +17,7 @@ EmployeePayrollDBService employeePayrollDBService = new EmployeePayrollDBService
     public long countEntries(IOService ioService) {
         if (ioService.equals(IOService.FILE_IO))
           return   new EmployeePayRollFileIOService().countEntries();
-        return 0;
+        return employeePayRollServicelist.size();
     }
 
     public List<EmployeePayRollData> readEmployeePayrollForDateRange(IOService ioService, LocalDate startDate, LocalDate endDate) {
@@ -43,6 +43,22 @@ EmployeePayrollDBService employeePayrollDBService = new EmployeePayrollDBService
 
     public void addEmployeeToPayroll(String name, int phoneNo, String address, String department, String gender, int basicpay, int deductions, int taxablepay, int income_tax, int  Net_Pay, LocalDate  start) throws SQLException {
     employeePayRollServicelist.add(employeePayrollDBService.addEmployeeToPayRollUc8(name,phoneNo,address,department,gender,basicpay,deductions,taxablepay,income_tax,Net_Pay,start));
+    }
+
+    public  void addEmployeeToPayroll(List<EmployeePayRollData> employeePayRollServicelist) {
+        employeePayRollServicelist.forEach(employeePayRollData -> {
+            System.out.println("employee is being added :"+employeePayRollData.name);
+            try {
+                this.addEmployeeToPayroll(employeePayRollData.name,employeePayRollData.phoneNo,employeePayRollData.address,employeePayRollData.department,
+                        employeePayRollData.gender,employeePayRollData.basicpay,employeePayRollData.deductions,
+                        employeePayRollData.taxablepay,employeePayRollData.income_tax,employeePayRollData.net_pay,
+                        employeePayRollData.start);
+                System.out.println("employee is added :"+employeePayRollData.name);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+//            System.out.println(this.employeePayRollServicelist);
+        });
     }
 
 

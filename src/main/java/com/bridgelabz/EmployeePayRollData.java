@@ -4,23 +4,23 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 public class EmployeePayRollData {
-    private int id;
-    private int employee_id;
+    public int id;
+    public int employee_id;
     public  String name;
-    private int phoneNo;
-    private String address;
-    private String department;
-    private String gender;
+    public int phoneNo;
+    public String address;
+    public String department;
+    public String gender;
     public int basicpay;
     public int deductions;
-    private int taxablepay;
-    private int income_tax;
-    private int net_pay;
-    private LocalDate start;
-    private  int company_id;
-    private String company_name;
-    private  int dept_id;
-    private String dept_name;
+    public int taxablepay;
+    public int income_tax;
+    public int net_pay;
+    public LocalDate start;
+    public  int company_id;
+    public String company_name;
+    public  int dept_id;
+    public String dept_name;
 
 
 
