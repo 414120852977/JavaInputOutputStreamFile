@@ -104,6 +104,9 @@ public class JdbcTest {
         Instant end  = Instant.now();
         System.out.println("duration without thread :" +Duration.between(start,end));
         Instant threadstart = Instant.now();
-        Assert.assertEquals(13,employeePayRollService.countEntries(DB_IO));
+        employeePayRollService.addEmployeeToPayrollWithThreads(Arrays.asList(arrayOfEmployee));
+        Instant threadEnd  = Instant.now();
+        System.out.println("duration of thread with thread:"+Duration.between(threadstart,threadEnd));
+        Assert.assertEquals(38,employeePayRollService.countEntries(DB_IO));
     }
 }

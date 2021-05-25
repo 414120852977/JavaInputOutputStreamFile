@@ -2,10 +2,7 @@ package com.bridgelabz;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 
 public class EmployeePayRollService {
 
@@ -58,6 +55,28 @@ EmployeePayrollDBService employeePayrollDBService = new EmployeePayrollDBService
                 e.printStackTrace();
             }
 //            System.out.println(this.employeePayRollServicelist);
+        });
+    }
+
+    public void addEmployeeToPayrollWithThreads(List<EmployeePayRollData> employeePayRollServicelist) {
+        Map<Integer, Boolean> employeeAdditionStatus = new HashMap<>();
+        employeePayRollServicelist.forEach(employeePayRollData -> {
+            Runnable task = () -> {
+                employeeAdditionStatus.put(employeePayRollData.hashCode(),false);
+                System.out.println("employee is being added :"+Thread.currentThread().getName());
+                try {
+                    this.addEmployeeToPayroll(employeePayRollData.name,employeePayRollData.phoneNo,employeePayRollData.address
+                    ,employeePayRollData.department,employeePayRollData.gender,employeePayRollData.basicpay,
+                            employeePayRollData.deductions,employeePayRollData.taxablepay,employeePayRollData.income_tax,
+                            employeePayRollData.net_pay,employeePayRollData.start);
+                    employeeAdditionStatus.put(employeePayRollData.hashCode(),true);
+                    System.out.println("employee Added :"+Thread.currentThread().getName());
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            };
+            Thread thread = new Thread(task,employeePayRollData.name) ;
+        thread.start();
         });
     }
 
